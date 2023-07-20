@@ -200,7 +200,7 @@ def main():
     # Upload multiple zip files
     uploaded_zip_files = st.file_uploader("Carga los archivos zip que contienen los archivos xml", type=["zip"], accept_multiple_files=True)
     uploaded_txt_files = st.file_uploader("Carga los archivos txt que contienen la metadata del SAT", type=["txt"], accept_multiple_files=True)
-    rfc_filtro = st.text_input('Ingresa el RFC de la sociedad que deseas hacer el análisis:', value='', key='rfc_filtro')
+    rfc_filtro = st.text_input('Ingresa el RFC de la sociedad que deseas hacer el análisis, para efectos de segmentar la información por Ingresos, Egresos, Comp Pago, Metadata:', value='', key='rfc_filtro')
     st.write("Selecciona la casilla Procesar 👇")
     if st.checkbox("Procesar"):
         if uploaded_zip_files and uploaded_txt_files:
