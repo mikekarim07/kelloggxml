@@ -169,6 +169,218 @@ def cfdv33(xml_file):
         'Version33': pagos_version33
     }
 
+def cfd_conceptos(xml_file):
+    # Crea un diccionario para almacenar los campos requeridos
+    data33 = {
+        'ClaveProdServ': [],
+        'NoIdentificacion': [],
+        'Cantidad': [],
+        'ClaveUnidad': [],
+        'Unidad': [],
+        'Descripcion': [],
+        'ValorUnitario': [],
+        'Importe': [],
+        'Descuento': [],
+        'UUID': [],
+        'Version': []
+    }
+    
+    data40 = {
+        'ClaveProdServ': [],
+        'NoIdentificacion': [],
+        'Cantidad': [],
+        'ClaveUnidad': [],
+        'Unidad': [],
+        'Descripcion': [],
+        'ValorUnitario': [],
+        'Importe': [],
+        'Descuento': [],
+        'UUID': [],
+        'Version': []
+    }
+
+    # Define the namespaces used in the XML file
+    ns33 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/3',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    ns40 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/4',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    # Parsea el archivo XML
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    # Extrae el UUID del atributo del elemento 'tfd:TimbreFiscalDigital'
+    uuid33 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns33).attrib.get('UUID')
+    version33 = root.attrib.get('Version', '')
+    uuid40 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns40).attrib.get('UUID')
+    version40 = root.attrib.get('Version', '')
+    # Itera sobre cada elemento 'cfdi:Concepto'
+    
+    for concepto33 in root.findall('.//cfdi:Concepto', namespaces=ns33):
+        data33['ClaveProdServ'].append(concepto33.attrib.get('ClaveProdServ', ''))
+        data33['NoIdentificacion'].append(concepto33.attrib.get('NoIdentificacion', ''))
+        data33['Cantidad'].append(concepto33.attrib.get('Cantidad', ''))
+        data33['ClaveUnidad'].append(concepto33.attrib.get('ClaveUnidad', ''))
+        data33['Unidad'].append(concepto33.attrib.get('Unidad', ''))
+        data33['Descripcion'].append(concepto33.attrib.get('Descripcion', ''))
+        data33['ValorUnitario'].append(concepto33.attrib.get('ValorUnitario', ''))
+        data33['Importe'].append(concepto33.attrib.get('Importe', ''))
+        data33['Descuento'].append(concepto33.attrib.get('Descuento', ''))
+        data33['UUID'].append(uuid33)
+        data33['Version'].append(version33)
+
+    for concepto40 in root.findall('.//cfdi:Concepto', namespaces=ns40):
+        data40['ClaveProdServ'].append(concepto40.attrib.get('ClaveProdServ', ''))
+        data40['NoIdentificacion'].append(concepto40.attrib.get('NoIdentificacion', ''))
+        data40['Cantidad'].append(concepto40.attrib.get('Cantidad', ''))
+        data40['ClaveUnidad'].append(concepto40.attrib.get('ClaveUnidad', ''))
+        data40['Unidad'].append(concepto40.attrib.get('Unidad', ''))
+        data40['Descripcion'].append(concepto40.attrib.get('Descripcion', ''))
+        data40['ValorUnitario'].append(concepto40.attrib.get('ValorUnitario', ''))
+        data40['Importe'].append(concepto40.attrib.get('Importe', ''))
+        data40['Descuento'].append(concepto40.attrib.get('Descuento', ''))
+        data40['UUID'].append(uuid40)
+        data40['Version'].append(version40)
+    # Crea el DataFrame con el diccionario
+    df33 = pd.DataFrame(data33)
+    df40 = pd.DataFrame(data40)
+    df = pd.concat([df33,df40])
+    return df
+
+def cfd_impuestosxconcepto(xml_file):
+    # Crea un diccionario para almacenar los campos requeridos
+    data33 = {
+        'Base': [],
+        'Impuesto': [],
+        'TipoFactor': [],
+        'TasaOCuota': [],
+        'Importe': [],
+        'UUID': [],
+        'Version': []
+    }
+    
+    data40 = {
+        'Base': [],
+        'Impuesto': [],
+        'TipoFactor': [],
+        'TasaOCuota': [],
+        'Importe': [],
+        'UUID': [],
+        'Version': []
+    }
+
+    # Define the namespaces used in the XML file
+    ns33 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/3',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    ns40 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/4',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    # Parsea el archivo XML
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    # Extrae el UUID del atributo del elemento 'tfd:TimbreFiscalDigital'
+    uuid33 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns33).attrib.get('UUID')
+    version33 = root.attrib.get('Version', '')
+    uuid40 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns40).attrib.get('UUID')
+    version40 = root.attrib.get('Version', '')
+    # Itera sobre cada elemento 'cfdi:Concepto'
+    
+    for impuestos33 in root.findall('.//cfdi:Concepto/cfdi:Impuestos/cfdi:Traslados/cfdi:Traslado', namespaces=ns33):
+        data33['Base'].append(impuestos33.attrib.get('Base', ''))
+        data33['Impuesto'].append(impuestos33.attrib.get('Impuesto', ''))
+        data33['TipoFactor'].append(impuestos33.attrib.get('TipoFactor', ''))
+        data33['TasaOCuota'].append(impuestos33.attrib.get('TasaOCuota', ''))
+        data33['Importe'].append(impuestos33.attrib.get('Importe', ''))
+        data33['UUID'].append(uuid33)
+        data33['Version'].append(version33)
+
+    for impuestos40 in root.findall('.//cfdi:Concepto/cfdi:Impuestos/cfdi:Traslados/cfdi:Traslado', namespaces=ns40):
+        data40['Base'].append(impuestos40.attrib.get('Base', ''))
+        data40['Impuesto'].append(impuestos40.attrib.get('Impuesto', ''))
+        data40['TipoFactor'].append(impuestos40.attrib.get('TipoFactor', ''))
+        data40['TasaOCuota'].append(impuestos40.attrib.get('TasaOCuota', ''))
+        data40['Importe'].append(impuestos40.attrib.get('Importe', ''))
+        data40['UUID'].append(uuid40)
+        data40['Version'].append(version40)
+    # Crea el DataFrame con el diccionario
+    df33 = pd.DataFrame(data33)
+    df40 = pd.DataFrame(data40)
+    df = pd.concat([df33,df40])
+    return df
+
+def cfd_impretxconcepto(xml_file):
+    # Crea un diccionario para almacenar los campos requeridos
+    data33 = {
+        'BaseRet': [],
+        'ImpuestoRet': [],
+        'TipoFactorRet': [],
+        'TasaOCuotaRet': [],
+        'ImporteRet': [],
+        'UUIDRet': [],
+        'VersionRet': []
+    }
+    
+    data40 = {
+        'BaseRet': [],
+        'ImpuestoRet': [],
+        'TipoFactorRet': [],
+        'TasaOCuotaRet': [],
+        'ImporteRet': [],
+        'UUIDRet': [],
+        'VersionRet': []
+    }
+
+    # Define the namespaces used in the XML file
+    ns33 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/3',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    ns40 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/4',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    # Parsea el archivo XML
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    # Extrae el UUID del atributo del elemento 'tfd:TimbreFiscalDigital'
+    uuid33 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns33).attrib.get('UUID')
+    version33 = root.attrib.get('Version', '')
+    uuid40 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns40).attrib.get('UUID')
+    version40 = root.attrib.get('Version', '')
+    # Itera sobre cada elemento 'cfdi:Concepto'
+    
+    for retenciones33 in root.findall('.//cfdi:Concepto/cfdi:Impuestos/cfdi:Retenciones/cfdi:Retencion', namespaces=ns33):
+        data33['BaseRet'].append(retenciones33.attrib.get('Base', ''))
+        data33['ImpuestoRet'].append(retenciones33.attrib.get('Impuesto', ''))
+        data33['TipoFactorRet'].append(retenciones33.attrib.get('TipoFactor', ''))
+        data33['TasaOCuotaRet'].append(retenciones33.attrib.get('TasaOCuota', ''))
+        data33['ImporteRet'].append(retenciones33.attrib.get('Importe', ''))
+        data33['UUIDRet'].append(uuid33)
+        data33['VersionRet'].append(version33)
+
+    for impuestos40 in root.findall('.//cfdi:Concepto/cfdi:Impuestos/cfdi:Retenciones/cfdi:Retencion', namespaces=ns40):
+        data40['BaseRet'].append(impuestos40.attrib.get('Base', ''))
+        data40['ImpuestoRet'].append(impuestos40.attrib.get('Impuesto', ''))
+        data40['TipoFactorRet'].append(impuestos40.attrib.get('TipoFactor', ''))
+        data40['TasaOCuotaRet'].append(impuestos40.attrib.get('TasaOCuota', ''))
+        data40['ImporteRet'].append(impuestos40.attrib.get('Importe', ''))
+        data40['UUIDRet'].append(uuid40)
+        data40['VersionRet'].append(version40)
+    # Crea el DataFrame con el diccionario
+    dfret33 = pd.DataFrame(data33)
+    dfret40 = pd.DataFrame(data40)
+    df = pd.concat([dfret33,dfret40])
+    return df
+
+
 def read_and_append_txt_files(uploaded_txt_files):
     all_txt_data = []
     
@@ -200,7 +412,7 @@ def main():
     # Upload multiple zip files
     uploaded_zip_files = st.file_uploader("Carga los archivos zip que contienen los archivos xml", type=["zip"], accept_multiple_files=True)
     uploaded_txt_files = st.file_uploader("Carga los archivos txt que contienen la metadata del SAT", type=["txt"], accept_multiple_files=True)
-    rfc_filtro = st.text_input('Ingresa el RFC de la sociedad que deseas hacer el análisis, para efectos de segmentar la información por Ingresos, Egresos, Comp Pago, Metadata:', value='', key='rfc_filtro')
+    rfc_filtro = st.text_input('Ingresa el RFC de la sociedad que deseas hacer el análisis:', value='', key='rfc_filtro')
     st.write("Selecciona la casilla Procesar 👇")
     if st.checkbox("Procesar"):
         if uploaded_zip_files and uploaded_txt_files:
@@ -217,7 +429,26 @@ def main():
 
             start_time = time.time()
             
+            conceptos = []
+            for xml_file in extracted_files:
+                data_frame = cfd_conceptos(xml_file)
+                conceptos.append(data_frame)
+            df_conceptos = pd.concat(conceptos, ignore_index=True)
 
+            #codigocopiado
+            impxconc = []
+            for xml_file in extracted_files:
+                data_frame_imp = cfd_impuestosxconcepto(xml_file)
+                impxconc.append(data_frame_imp)
+            df_impxconc = pd.concat(impxconc, ignore_index=True)
+
+            impretxconc = []
+            for xml_file in extracted_files:
+                data_frame_imp_retxcon = cfd_impretxconcepto(xml_file)
+                impretxconc.append(data_frame_imp_retxcon)
+
+            df_impretxcon = pd.concat(impretxconc, ignore_index=True)
+            #codigocopiado
             data_parse_cfd33 = []
             cfdv33_not_processed = []
                         
@@ -299,7 +530,7 @@ def main():
             
             st.divider()
             
-            tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Total CFDIs", "Ingresos", "Egresos", "Nomina", "Complementos de Pago", "Metadata"])
+            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["Total CFDIs", "Ingresos", "Egresos", "Nomina", "Complementos de Pago", "Metadata", "Conceptos", "Imp x Concepto", "Imp Ret x Conc"])
             
             with tab1:
                 st.subheader("Total de CFDIs")
@@ -352,6 +583,26 @@ def main():
                 st.write(txt_appended.shape)
                 st.dataframe(txt_appended)
 
+            with tab7:
+                st.subheader("Conceptos")
+                st.caption('Detalle de la Metadata')
+                df_conceptos = pd.concat(conceptos, ignore_index=True)
+                st.write(df_conceptos.shape)
+                st.dataframe(df_conceptos)
+
+            with tab8:
+                st.subheader("Impuestos por concepto")
+                st.caption('Detalle de la Metadata')
+                
+                st.write(df_impxconc.shape)
+                st.dataframe(df_impxconc)
+
+            with tab9:
+                st.subheader("Impuestos Retenidos por concepto")
+                st.caption('Detalle de la Metadata')
+                st.write(df_impretxcon.shape)
+                st.dataframe(df_impretxcon)
+
             if st.session_state.rfc_filtro:
                 buffer = io.BytesIO()
 
@@ -377,4 +628,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
