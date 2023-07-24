@@ -1,0 +1,22 @@
+﻿CMP,Metodo de Pago,Estatus
+01,Efectivo,Pagado
+02,Cheque nominativo,Pagado
+03,Transferencia electrónica de fondos,Pagado
+04,Tarjeta de crédito,Pagado
+05,Monedero electrónico,Pagado
+06,Dinero electrónico,Pagado
+08,Vales de despensa,Pagado
+12,Dación en pago,Pagado
+13,Pago por subrogación,Pagado
+14,Pago por consignación,Pagado
+15,Condonación,Pagado
+17,Compensación,Pagado
+23,Novación,Pagado
+24,Confusión,Pagado
+25,Remisión de deuda,Pagado
+26,Prescripción o caducidad,Pagado
+27,A satisfacción del acreedor,Pagado
+28,Tarjeta de débito,Pagado
+29,Tarjeta de servicios,Pagado
+30,Aplicación de anticipos,Pagado
+99,Por definir,Pendiente
