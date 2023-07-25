@@ -380,6 +380,137 @@ def cfd_impretxconcepto(xml_file):
     df = pd.concat([dfret33,dfret40])
     return df
 
+def cfd_impuestos(xml_file):
+    # Crea un diccionario para almacenar los campos requeridos
+    data33 = {
+        'Base': [],
+        'Impuesto': [],
+        'TipoFactor': [],
+        'TasaOCuota': [],
+        'Importe': [],
+        'UUID': [],
+        'Version': []
+    }
+    
+    data40 = {
+        'Base': [],
+        'Impuesto': [],
+        'TipoFactor': [],
+        'TasaOCuota': [],
+        'Importe': [],
+        'UUID': [],
+        'Version': []
+    }
+
+    # Define the namespaces used in the XML file
+    ns33 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/3',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    ns40 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/4',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    # Parsea el archivo XML
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    # Extrae el UUID del atributo del elemento 'tfd:TimbreFiscalDigital'
+    uuid33 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns33).attrib.get('UUID')
+    version33 = root.attrib.get('Version', '')
+    uuid40 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns40).attrib.get('UUID')
+    version40 = root.attrib.get('Version', '')
+    # Itera sobre cada elemento 'cfdi:Concepto'
+    
+    for impuestos33 in root.findall('cfdi:Impuestos/cfdi:Traslados/cfdi:Traslado', namespaces=ns33):
+        data33['Base'].append(impuestos33.attrib.get('Base', ''))
+        data33['Impuesto'].append(impuestos33.attrib.get('Impuesto', ''))
+        data33['TipoFactor'].append(impuestos33.attrib.get('TipoFactor', ''))
+        data33['TasaOCuota'].append(impuestos33.attrib.get('TasaOCuota', ''))
+        data33['Importe'].append(impuestos33.attrib.get('Importe', ''))
+        data33['UUID'].append(uuid33)
+        data33['Version'].append(version33)
+    
+    for impuestos40 in root.findall('cfdi:Impuestos/cfdi:Traslados/cfdi:Traslado', namespaces=ns40):
+        data40['Base'].append(impuestos40.attrib.get('Base', ''))
+        data40['Impuesto'].append(impuestos40.attrib.get('Impuesto', ''))
+        data40['TipoFactor'].append(impuestos40.attrib.get('TipoFactor', ''))
+        data40['TasaOCuota'].append(impuestos40.attrib.get('TasaOCuota', ''))
+        data40['Importe'].append(impuestos40.attrib.get('Importe', ''))
+        data40['UUID'].append(uuid40)
+        data40['Version'].append(version40)
+    # Crea el DataFrame con el diccionario
+    df33 = pd.DataFrame(data33)
+    df40 = pd.DataFrame(data40)
+    df = pd.concat([df33,df40])
+    return df
+
+def cfd_impuestos_ret(xml_file):
+    # Crea un diccionario para almacenar los campos requeridos
+    data33 = {
+        'BaseRet': [],
+        'ImpuestoRet': [],
+        'TipoFactorRet': [],
+        'TasaOCuotaRet': [],
+        'ImporteRet': [],
+        'UUIDRet': [],
+        'VersionRet': []
+    }
+    
+    data40 = {
+        'BaseRet': [],
+        'ImpuestoRet': [],
+        'TipoFactorRet': [],
+        'TasaOCuotaRet': [],
+        'ImporteRet': [],
+        'UUIDRet': [],
+        'VersionRet': []
+    }
+
+    # Define the namespaces used in the XML file
+    ns33 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/3',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    ns40 = {
+        'cfdi': 'http://www.sat.gob.mx/cfd/4',
+        'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital'
+    }
+    # Parsea el archivo XML
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    # Extrae el UUID del atributo del elemento 'tfd:TimbreFiscalDigital'
+    uuid33 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns33).attrib.get('UUID')
+    version33 = root.attrib.get('Version', '')
+    uuid40 = root.find('.//tfd:TimbreFiscalDigital', namespaces=ns40).attrib.get('UUID')
+    version40 = root.attrib.get('Version', '')
+    # Itera sobre cada elemento 'cfdi:Concepto'
+    
+    for retenciones33 in root.findall('cfdi:Impuestos/cfdi:Retenciones/cfdi:Retencion', namespaces=ns33):
+        data33['BaseRet'].append(retenciones33.attrib.get('Base', ''))
+        data33['ImpuestoRet'].append(retenciones33.attrib.get('Impuesto', ''))
+        data33['TipoFactorRet'].append(retenciones33.attrib.get('TipoFactor', ''))
+        data33['TasaOCuotaRet'].append(retenciones33.attrib.get('TasaOCuota', ''))
+        data33['ImporteRet'].append(retenciones33.attrib.get('Importe', ''))
+        data33['UUIDRet'].append(uuid33)
+        data33['VersionRet'].append(version33)
+
+    for impuestos40 in root.findall('cfdi:Impuestos/cfdi:Retenciones/cfdi:Retencion', namespaces=ns40):
+        data40['BaseRet'].append(impuestos40.attrib.get('Base', ''))
+        data40['ImpuestoRet'].append(impuestos40.attrib.get('Impuesto', ''))
+        data40['TipoFactorRet'].append(impuestos40.attrib.get('TipoFactor', ''))
+        data40['TasaOCuotaRet'].append(impuestos40.attrib.get('TasaOCuota', ''))
+        data40['ImporteRet'].append(impuestos40.attrib.get('Importe', ''))
+        data40['UUIDRet'].append(uuid40)
+        data40['VersionRet'].append(version40)
+    # Crea el DataFrame con el diccionario
+    dfret33 = pd.DataFrame(data33)
+    dfret40 = pd.DataFrame(data40)
+    df = pd.concat([dfret33,dfret40])
+    return df
+
+
 
 def read_and_append_txt_files(uploaded_txt_files):
     all_txt_data = []
@@ -447,8 +578,22 @@ def main():
                 data_frame_imp_retxcon = cfd_impretxconcepto(xml_file)
                 impretxconc.append(data_frame_imp_retxcon)
 
+
+            impuestos = []
+            for xml_file in extracted_files:
+                data_frame_impuestos = cfd_impuestos(xml_file)
+                impuestos.append(data_frame_impuestos)
+            df_impuestos = pd.concat(impuestos, ignore_index=True)
+            
+            
+            impuestos_ret = []
+            for xml_file in extracted_files:
+                data_frame_impuestos_ret = cfd_impuestos_ret(xml_file)
+                impuestos_ret.append(data_frame_impuestos_ret)
+            df_impuestos_ret = pd.concat(impuestos_ret, ignore_index=True)
+
             df_impretxcon = pd.concat(impretxconc, ignore_index=True)
-            #codigocopiado
+            
             data_parse_cfd33 = []
             cfdv33_not_processed = []
                         
@@ -485,7 +630,35 @@ def main():
                               'FechaEmision':'FechaEmision_Meta','FechaCertificacionSat':'FechaCertificacionSat_Meta',
                               'Monto':'Monto_Meta','EfectoComprobante':'EfectoComprobante_Meta','Estatus':'Estatus_Meta',
                               'FechaCancelacion':'FechaCancelacion_Meta'}, inplace = True)
-
+            metadata = pd.DataFrame(txt_appended)
+            metadata[['FechaEmision_Meta', 'HoraEmision_Meta']] = metadata['FechaEmision_Meta'].str.split(' ', n=1, expand=True)
+            metadata[['FechaEmision_Meta']] = metadata[['FechaEmision_Meta']].apply(pd.to_datetime)
+            metadata['Año_Meta'] = metadata['FechaEmision_Meta'].dt.year
+            metadata['Mes_Meta'] = metadata['FechaEmision_Meta'].dt.month
+            metadata['Día_Meta'] = metadata['FechaEmision_Meta'].dt.day
+            metadata[['Año_Meta', 'Mes_Meta', 'Día_Meta']] = metadata[['Año_Meta', 'Mes_Meta', 'Día_Meta']].astype('string')
+            metadata[['Monto_Meta']] = metadata[['Monto_Meta']].apply(pd.to_numeric)
+            metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
+            metadata['FechaCancelacion_Meta'] = pd.to_datetime(metadata['FechaCancelacion_Meta'], errors='coerce')
+            metadata[['FechaCancelacion_Meta']] = metadata[['FechaCancelacion_Meta']].apply(pd.to_datetime)
+            metadata['Año_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.year
+            metadata['Mes_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.month
+            metadata['Día_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.day
+            metadata[['Año_Canc_Meta', 'Mes_Canc_Meta', 'Día_Canc_Meta']] = metadata[['Año_Canc_Meta', 'Mes_Canc_Meta', 'Día_Canc_Meta']].astype('string')
+            metadata[['Monto_Meta']] = metadata[['Monto_Meta']].apply(pd.to_numeric)
+            def monto_vigente(row):
+                if row['Estatus_Meta'] == '1':
+                    return row['Monto_Meta']
+                else:
+                    return None
+                
+            def monto_cancelado(row):
+                if row['Estatus_Meta'] == '0':
+                    return row['Monto_Meta']
+                else:
+                    return None
+            metadata['Monto_Meta_Vig'] = metadata.apply(monto_vigente, axis=1)
+            metadata['Monto_Meta_Canc'] = metadata.apply(monto_cancelado, axis=1)
 
             CFDIs = pd.DataFrame(df_cfdv33)
             CFDIs['UsoCFDI'] = CFDIs['UsoCFDI4']+CFDIs['UsoCFDI33']
@@ -514,7 +687,9 @@ def main():
             CFDIs['Mes'] = CFDIs['FechaEmision'].dt.month
             CFDIs['Día'] = CFDIs['FechaEmision'].dt.day
             CFDIs[['Año', 'Mes', 'Día']] = CFDIs[['Año', 'Mes', 'Día']].astype('string')
-            CFDIs = CFDIs.merge(txt_appended, left_on='UUID', right_on='UUID_Meta', how='left')
+            CFDIs['UUID'] = CFDIs['UUID'].str.upper()
+            CFDIs['TipoDeComprobante'] = CFDIs['TipoDeComprobante'].str.upper()
+            CFDIs = CFDIs.merge(metadata, left_on='UUID', right_on='UUID_Meta', how='left')
 
 
 
@@ -522,7 +697,7 @@ def main():
                         'NombreReceptor33','TotalImpuestosRet4','TotalImpuestosRet33','TotalImpuestosTrasl4','TotalImpuestosTrasl33','UUID4','UUID33','FechaPagoP4','FechaPagoP33','FormaDePagoP4',
                         'FormaDePagoP33','MonedaP4','MonedaP33','MontoP4','MontoP33','DocRelacionado4','DocRelacionado33','MonedaDR4','MonedaDR33','NumParcialidad4','NumParcialidad33',
                         'ImporteSaldoAnt4','ImporteSaldoAnt33','ImportePagado4','ImportePagado33','ImprteSaldoInsoluto4','ImprteSaldoInsoluto33','Version4','Version33','RfcReceptor_Meta',
-                        'NombreReceptor_Meta','RfcPac_Meta','FechaEmision_Meta','FechaCertificacionSat_Meta','Monto_Meta','EfectoComprobante_Meta'], axis = 1, inplace=True)
+                        'NombreReceptor_Meta','RfcPac_Meta','FechaEmision_Meta','FechaCertificacionSat_Meta','EfectoComprobante_Meta'], axis = 1, inplace=True)
             CFDIs[['SubTotal', 'Total', 'ImpuestosRetenidos', 'ImpuestosTrasladados', 'MontoP', 'ImporteSaldoAnterior', 'ImportePagado', 'ImporteSaldoInsoluto']] = CFDIs[['SubTotal', 'Total',
                      'ImpuestosRetenidos', 'ImpuestosTrasladados', 'MontoP', 'ImporteSaldoAnterior', 'ImportePagado', 'ImporteSaldoInsoluto']].apply(pd.to_numeric)
             
@@ -530,7 +705,8 @@ def main():
             
             st.divider()
             
-            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["Total CFDIs", "Ingresos", "Egresos", "Nomina", "Complementos de Pago", "Metadata", "Conceptos", "Imp x Concepto", "Imp Ret x Conc"])
+            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(["Total CFDIs", "Ingresos", "Egresos", "Nomina", "Complementos de Pago", "Metadata",
+                                                                                           "Conceptos", "Imp x Concepto", "Imp Ret x Conc", "Impuestos Totales", "Impuestos Retenidos"])
             
             with tab1:
                 st.subheader("Total de CFDIs")
@@ -547,7 +723,7 @@ def main():
                 st.write(cfdi_ingresos.shape)
                 st.dataframe(cfdi_ingresos, height=600)
                 resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
-                resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False)['SubTotal'].sum()
+                resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
                 st.dataframe(resumen_ing, height=600)
                 
             with tab3:
@@ -558,7 +734,7 @@ def main():
                 st.write(cfdi_egresos.shape)
                 st.dataframe(cfdi_egresos, height=600)
                 resumen_eg = cfdi_egresos[cfdi_egresos['Estatus_Meta'] != "0"]
-                resumen_eg = resumen_eg.groupby(by=['RFCReceptor', 'Año', 'Mes'], as_index=False)['SubTotal'].sum()
+                resumen_eg = resumen_eg.groupby(by=['RFCReceptor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
                 st.dataframe(resumen_eg, height=600)
                 
             with tab4:
@@ -580,8 +756,34 @@ def main():
             with tab6:
                 st.subheader("Metadata")
                 st.caption('Detalle de la Metadata')
-                st.write(txt_appended.shape)
-                st.dataframe(txt_appended)
+                st.write(metadata.shape)
+                st.dataframe(metadata)
+                st.divider()
+
+                st.caption('Metadata Ing')
+                metadata_ing = metadata[metadata['RfcEmisor_Meta'] == rfc_filtro]
+                st.dataframe(metadata_ing)
+                st.divider()
+                
+                st.caption('Metadata Eg')
+                metadata_eg = metadata[metadata['RfcReceptor_Meta'] == rfc_filtro]
+                st.dataframe(metadata_eg)
+                st.divider()
+                
+                st.caption('Resumen Metadata Ing')
+                def monto_nomina(row):
+                    if row['EfectoComprobante_Meta'] == 'N':
+                        return row['Monto_Meta']
+                    else:
+                        return None
+                resumen_metadata_ing = pd.DataFrame(metadata_ing)
+                resumen_metadata_ing['Monto_Meta_Nom'] = resumen_metadata_ing.apply(monto_nomina, axis=1)
+                resumen_metadata_ing = resumen_metadata_ing.groupby(by=['RfcEmisor_Meta', 'Año_Meta', 'Mes_Meta'], as_index=False).agg({'Monto_Meta_Vig': 'sum','Monto_Meta_Canc': 'sum','Monto_Meta_Nom': 'sum'})
+                st.dataframe(resumen_metadata_ing)
+                
+                st.caption('Resumen Metadata Eg')
+                resumen_metadata_eg = metadata_eg.groupby(by=['RfcReceptor_Meta', 'Año_Meta', 'Mes_Meta'], as_index=False).agg({'Monto_Meta_Vig': 'sum','Monto_Meta_Canc': 'sum'})
+                st.dataframe(resumen_metadata_eg)
 
             with tab7:
                 st.subheader("Conceptos")
@@ -602,6 +804,23 @@ def main():
                 st.caption('Detalle de la Metadata')
                 st.write(df_impretxcon.shape)
                 st.dataframe(df_impretxcon)
+
+            with tab10:
+                st.subheader("Impuestos Totales")
+                st.caption('Detalle de la Metadata')
+                st.write(df_impuestos.shape)
+                st.dataframe(df_impuestos)
+
+            with tab11:
+                st.subheader("Impuestos Retenidos")
+                st.caption('Detalle de la Metadata')
+                st.write(df_impuestos_ret.shape)
+                st.dataframe(df_impuestos_ret)
+
+
+            
+            
+
 
             if st.session_state.rfc_filtro:
                 buffer = io.BytesIO()
