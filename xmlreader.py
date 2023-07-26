@@ -545,7 +545,7 @@ def main():
     uploaded_txt_files = st.file_uploader("Carga los archivos txt que contienen la metadata del SAT", type=["txt"], accept_multiple_files=True)
     rfc_filtro = st.text_input('Ingresa el RFC de la sociedad que deseas hacer el análisis:', value='', key='rfc_filtro')
     metodos_pago = pd.read_csv("mp.csv")
-    prov69B = pd.read_csv("Listado_Completo_69-B.csv")
+    prov69B = pd.read_excel("Listado_Completo_69-B.csv", engine='openpyxl')
     
     st.write("Selecciona la casilla Procesar 👇")
     if st.checkbox("Procesar"):
