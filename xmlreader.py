@@ -641,9 +641,12 @@ def main():
             metadata['Día_Meta'] = metadata['FechaEmision_Meta'].dt.day
             metadata[['Año_Meta', 'Mes_Meta', 'Día_Meta']] = metadata[['Año_Meta', 'Mes_Meta', 'Día_Meta']].astype('string')
             metadata[['Monto_Meta']] = metadata[['Monto_Meta']].apply(pd.to_numeric)
-            if 'FechaCancelacion_Meta' in metadata:
-                metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
-                metadata['HoraCancelacion_Meta'].fillna('', inplace=True)  # Fill missing time values with empty string or any default value you prefer
+            metadata['FechaCancelacion_Meta'].fillna('', inplace=True)
+            metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
+
+            # if 'FechaCancelacion_Meta' in metadata:
+            #     metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
+            #     metadata['HoraCancelacion_Meta'].fillna('', inplace=True)  # Fill missing time values with empty string or any default value you prefer
             # metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
             metadata['FechaCancelacion_Meta'] = pd.to_datetime(metadata['FechaCancelacion_Meta'], errors='coerce')
             metadata[['FechaCancelacion_Meta']] = metadata[['FechaCancelacion_Meta']].apply(pd.to_datetime)
