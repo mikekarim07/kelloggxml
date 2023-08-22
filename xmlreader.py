@@ -9,7 +9,7 @@ from io import StringIO
 import base64
 
 st.set_page_config(
-    page_title="Lector de archivos xml de los CFDIs - webapp",
+    page_title="Lector de archivos xml de los CFDIs",
     page_icon="⏱",
     layout="wide",
     initial_sidebar_state="expanded",
