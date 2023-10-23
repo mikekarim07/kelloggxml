@@ -9,7 +9,7 @@ from io import StringIO
 import base64
 
 st.set_page_config(
-    page_title="Lector v2 de archivos xml de los CFDIs - webapp",
+    page_title="Lector de archivos xml de los CFDIs - webapp",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -19,32 +19,22 @@ st.set_page_config(
 )
 
 
-
-if 'temp_folder' not in st.session_state:
-    st.session_state.temp_folder = None
-
-
-def unzip_files(zip_files):
-    # Create a temporary folder for unzipping
-    if not st.session_state.temp_folder:
-        st.session_state.temp_folder = 'temp_unzipped_data'
-        os.makedirs(st.session_state.temp_folder, exist_ok=True)
-
+def extract_xml_files(zip_files):
     extracted_files = set()
 
     for zip_file in zip_files:
         with zipfile.ZipFile(zip_file, 'r') as zf:
-            zf.extractall(st.session_state.temp_folder)
-
+            # Extract XML files to a temporary folder
+            extract_folder = 'temp'
+            zf.extractall(extract_folder)
+            
             # Add extracted XML files to the set
-            for root, _, files in os.walk(st.session_state.temp_folder):
+            for root, _, files in os.walk(extract_folder):
                 for file in files:
                     if file.endswith('.xml'):
                         extracted_files.add(os.path.join(root, file))
 
     return list(extracted_files)
-
-
 
 def cfdv33(xml_file):
     tree = ET.parse(xml_file)
@@ -522,38 +512,31 @@ def cfd_impuestos_ret(xml_file):
     df = pd.concat([dfret33,dfret40])
     return df
 
-
-
-def read_and_append_txt_files():
+def read_and_append_txt_files(uploaded_txt_files):
     all_txt_data = []
     
-    for root, _, files in os.walk(st.session_state.temp_folder):
-        for file in files:
-            if file.endswith('.txt'):
-                txt_file_path = os.path.join(root, file)
-                with open(txt_file_path, 'r', encoding='utf-8') as txt_file:
-                    content = txt_file.read()
+    for uploaded_file in uploaded_txt_files:
+        content = uploaded_file.read()
+        decoded_content = content.decode("utf-8")  # Decode the bytes to string using the appropriate encoding
 
-                    # Append the content of each file to the list
-                    all_txt_data.append(content)
+        # Append the content of each file to the list
+        all_txt_data.append(decoded_content)
     
-    if all_txt_data:
-        # Concatenate the contents of all files
-        concatenated_data = '\n'.join(all_txt_data)
+    # Concatenate the contents of all files
+    concatenated_data = '\n'.join(all_txt_data)
     
-        # Create a DataFrame from the concatenated data
-        df = pd.read_csv(StringIO(concatenated_data), sep='~')
-        return df
-    else:
-        st.warning("No TXT files found in the temporary folder.")
-        return None
+    # Create a DataFrame from the concatenated data
+    df = pd.read_csv(StringIO(concatenated_data), sep='~')
+    return df
+
+EFOS = pd.read_csv('http://omawww.sat.gob.mx/cifras_sat/Documents/Listado_Completo_69-B.csv', encoding='latin1', skiprows=2, header=0)
 
 
 def main():
     
     st.image("https://www.kelloggs.com/content/dam/NorthAmerica/kelloggs/en_US/images/logoMain.png", width=150)
     st.title("Plataforma Web para extraer datos de los CFDIs")
-    with st.expander("Instrucciones"):
+    with st.sidebar.expander("Instrucciones"):
         st.subheader("Instrucciones")
         st.write('1. Para una carga más ágil, juntar todos los archivos xml que desean procesar en uno o varios archivos zip.')
         st.write('1. Para una carga más ágil, juntar todos los archivos xml que desean procesar en uno o varios archivos zip.')
@@ -566,13 +549,14 @@ def main():
         
         st.divider()
     # Upload multiple zip files
-    uploaded_zip_files = st.file_uploader("Carga los archivos zip que contienen los archivos xml", type=["zip"], accept_multiple_files=True)
+    uploaded_zip_files = st.sidebar.file_uploader("Carga los archivos zip que contienen los archivos xml", type=["zip"], accept_multiple_files=True)
+    uploaded_txt_files = st.sidebar.file_uploader("Carga los archivos txt que contienen la metadata del SAT", type=["txt"], accept_multiple_files=True)
     rfc_filtro = st.text_input('Ingresa el RFC de la sociedad que deseas hacer el análisis:', value='', key='rfc_filtro')
     st.write("Selecciona la casilla Procesar 👇")
     if st.checkbox("Procesar"):
-        if uploaded_zip_files:
+        if uploaded_zip_files and uploaded_txt_files:
             # Extract XML files from zip files
-            extracted_files = unzip_files(uploaded_zip_files)
+            extracted_files = extract_xml_files(uploaded_zip_files)
             # st.dataframe(extracted_files)
             total_archivos = len(extracted_files)
             st.info(f'Total de archivos en la carpeta: {total_archivos}')
@@ -622,9 +606,7 @@ def main():
             cfdv33_not_processed = []
                         
             df_cfdv33 = pd.DataFrame()
-            
-            txt_appended = read_and_append_txt_files()
-
+            txt_appended = read_and_append_txt_files(uploaded_txt_files)
             
             if txt_appended is not None:
                 txt_appended = txt_appended[txt_appended['Uuid'] != 'Uuid']
@@ -740,6 +722,12 @@ def main():
                 st.caption('CFDIs Version 3.3 y 4.0')
                 st.write(CFDIs.shape)
                 st.dataframe(CFDIs, height=600)
+                st.subheader("EFOS")
+                st.caption('EFOS')
+                st.caption('EFOS')
+                st.write(EFOS.shape)
+                st.dataframe(EFOS, height=600)
+
                 
             with tab2:
                 st.subheader("CFDIs de Ingresos")
