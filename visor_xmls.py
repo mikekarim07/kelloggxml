@@ -7,6 +7,7 @@ import time
 import io
 from io import StringIO
 import base64
+import plotly.express as px
 
 st.set_page_config(
     page_title="Lector de archivos xml de los CFDIs - webapp",
