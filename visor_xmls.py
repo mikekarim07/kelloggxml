@@ -752,8 +752,8 @@ def main():
             if st.session_state.df_impxconc is None and df_impxconc is not None:
                 st.session_state.df_impxconc = df_impxconc
 
-            if st.session_state.df_impretxconc is None and df_impretxcon is not None:
-                st.session_state.df_impretxconc = df_impretxcon
+            if st.session_state.df_impretxcon is None and df_impretxcon is not None:
+                st.session_state.df_impretxcon = df_impretxcon
 
             if st.session_state.df_impuestos is None and df_impuestos is not None:
                 st.session_state.df_impuestos = df_impuestos
