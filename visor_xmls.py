@@ -729,7 +729,7 @@ def main():
                 fig = px.bar(resumen_ing_chart, x='Mes', y='SubTotal', color='Año', barmode='group', labels={'SubTotal': 'Suma del SubTotal', 'Mes': 'Mes', 'Año': 'Año'}, title='Suma del Subtotal por Mes y Año')
                 
                 # Muestra el gráfico
-                fig.show()
+                st.write(fig)
             
             with tab2:
                 st.subheader("Total de CFDIs")
