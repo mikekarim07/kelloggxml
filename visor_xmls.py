@@ -533,6 +533,30 @@ def read_and_append_txt_files(uploaded_txt_files):
 EFOS = pd.read_csv('http://omawww.sat.gob.mx/cifras_sat/Documents/Listado_Completo_69-B.csv', encoding='latin1', skiprows=2, header=0)
 
 
+if 'metadata' not in st.session_state:
+    st.session_state.metadata = None
+
+if 'CFDIs' not in st.session_state:
+    st.session_state.CFDIs = None
+
+if 'df_conceptos' not in st.session_state:
+    st.session_state.df_conceptos = None
+
+if 'df_impxconc' not in st.session_state:
+    st.session_state.df_impxconc = None
+
+if 'df_impretxcon' not in st.session_state:
+    st.session_state.df_impretxcon = None
+
+if 'df_impuestos' not in st.session_state:
+    st.session_state.df_impuestos = None
+
+if 'df_impuestos_ret' not in st.session_state:
+    st.session_state.df_impuestos_ret = None
+
+
+
+
 def main():
     
     st.image("https://www.kellanovaus.com/content/dam/NorthAmerica/kellanova-us/images/logo.svg", width=150)
@@ -714,6 +738,30 @@ def main():
             # cfdi_ingresos = cfdi_ingresos[(cfdi_ingresos['RFCEmisor'] == rfc_filtro) & ((cfdi_ingresos['TipoDeComprobante'] == "I"))]
             # resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
             # resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
+
+            #session state
+            if st.session_state.metadata is None and metadata is not None:
+                st.session_state.metadata = metadata
+
+            if st.session_state.CFDIs is None and CFDIs is not None:
+                st.session_state.CFDIs = CFDIs
+
+            if st.session_state.df_conceptos is None and df_conceptos is not None:
+                st.session_state.df_conceptos = df_conceptos
+
+            if st.session_state.df_impxconc is None and df_impxconc is not None:
+                st.session_state.df_impxconc = df_impxconc
+
+            if st.session_state.df_impretxconc is None and df_impretxcon is not None:
+                st.session_state.df_impretxconc = df_impretxcon
+
+            if st.session_state.df_impuestos is None and df_impuestos is not None:
+                st.session_state.df_impuestos = df_impuestos
+
+            if st.session_state.df_impuestos_ret is None and df_impuestos_ret is not None:
+                st.session_state.df_impuestos_ret = df_impuestos_ret
+
+
             
             st.divider()
             
@@ -726,7 +774,7 @@ def main():
                 resumen_ing_chart = resumen_ing_chart[(resumen_ing_chart['RFCEmisor'] == rfc_filtro) & ((resumen_ing_chart['TipoDeComprobante'] == "I"))]
                 resumen_ing_chart = resumen_ing_chart[resumen_ing_chart['Estatus_Meta'] != "0"]
                 resumen_ing_chart = resumen_ing_chart.groupby(by=['Año', 'Mes'], as_index=False)['SubTotal'].sum()
-                fig = px.bar(resumen_ing_chart, x='Mes', y='SubTotal', color='Año',  labels={'SubTotal': 'Suma del SubTotal', 'Mes': 'Mes', 'Año': 'Año'}, title='Suma del Subtotal por Mes y Año', height=400, width=800)
+                fig = px.bar(resumen_ing_chart, x='Mes', y='SubTotal', color='Año', barmode='group', labels={'SubTotal': 'Suma del SubTotal', 'Mes': 'Mes', 'Año': 'Año'}, title='Suma del Subtotal por Mes y Año', height=400, width=800)
                 # barmode='group',
                 # Muestra el gráfico
                 st.write(fig)
