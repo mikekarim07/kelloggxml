@@ -709,7 +709,10 @@ def main():
             CFDIs[['SubTotal', 'Total', 'ImpuestosRetenidos', 'ImpuestosTrasladados', 'MontoP', 'ImporteSaldoAnterior', 'ImportePagado', 'ImporteSaldoInsoluto']] = CFDIs[['SubTotal', 'Total',
                         'ImpuestosRetenidos', 'ImpuestosTrasladados', 'MontoP', 'ImporteSaldoAnterior', 'ImportePagado', 'ImporteSaldoInsoluto']].apply(pd.to_numeric)
             
-            
+            cfdi_ingresos = pd.DataFrame(CFDIs)
+            cfdi_ingresos = cfdi_ingresos[(cfdi_ingresos['RFCEmisor'] == rfc_filtro) & ((cfdi_ingresos['TipoDeComprobante'] == "I"))]
+            resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
+            resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
             
             st.divider()
             
@@ -718,6 +721,11 @@ def main():
 
             with tab1:
                 st.header("Resumen")
+                resumen_ing_chart = resumen_ing.groupby(by=['Año', 'Mes'], as_index=False)['Subtotal'].sum()
+                fig = px.bar(resumen_ing_chart, x='Mes', y='Subtotal', color='Año', barmode='group', labels={'Subtotal': 'Suma del Subtotal', 'Mes': 'Mes', 'Año': 'Año'}, title='Suma del Subtotal por Mes y Año')
+                
+                # Muestra el gráfico
+                fig.show()
             
             with tab2:
                 st.subheader("Total de CFDIs")
@@ -735,12 +743,12 @@ def main():
             with tab3:
                 st.subheader("CFDIs de Ingresos")
                 st.caption('Detalle de los CFDIs procesados')
-                cfdi_ingresos = pd.DataFrame(CFDIs)
-                cfdi_ingresos = cfdi_ingresos[(cfdi_ingresos['RFCEmisor'] == rfc_filtro) & ((cfdi_ingresos['TipoDeComprobante'] == "I"))]
+                # cfdi_ingresos = pd.DataFrame(CFDIs)
+                # cfdi_ingresos = cfdi_ingresos[(cfdi_ingresos['RFCEmisor'] == rfc_filtro) & ((cfdi_ingresos['TipoDeComprobante'] == "I"))]
                 st.write(cfdi_ingresos.shape)
                 st.dataframe(cfdi_ingresos, height=600)
-                resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
-                resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
+                # resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
+                # resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
                 st.dataframe(resumen_ing, height=600)
                 
             with tab4:
