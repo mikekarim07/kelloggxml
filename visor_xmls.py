@@ -554,6 +554,8 @@ if 'df_impuestos' not in st.session_state:
 if 'df_impuestos_ret' not in st.session_state:
     st.session_state.df_impuestos_ret = None
 
+if 'rfc_filtro' not in st.session_state:
+    st.session_state.rfc_filtro = None
 
 
 
@@ -760,6 +762,9 @@ def main():
 
             if st.session_state.df_impuestos_ret is None and df_impuestos_ret is not None:
                 st.session_state.df_impuestos_ret = df_impuestos_ret
+
+            if st.session_state.rfc_filtro is None and rfc_filtro is not None:
+                st.session_state.rfc_filtro = rfc_filtro
 
 
             
