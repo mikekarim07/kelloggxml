@@ -721,7 +721,8 @@ def main():
 
             with tab1:
                 st.header("Resumen")
-                resumen_ing_chart = resumen_ing.groupby(by=['Año', 'Mes'], as_index=False)['Subtotal'].sum()
+                resumen_ing_chart = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
+                resumen_ing_chart = resumen_ing_chart.groupby(by=['Año', 'Mes'], as_index=False)['Subtotal'].sum()
                 fig = px.bar(resumen_ing_chart, x='Mes', y='Subtotal', color='Año', barmode='group', labels={'Subtotal': 'Suma del Subtotal', 'Mes': 'Mes', 'Año': 'Año'}, title='Suma del Subtotal por Mes y Año')
                 
                 # Muestra el gráfico
