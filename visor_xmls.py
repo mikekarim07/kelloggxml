@@ -726,8 +726,8 @@ def main():
                 resumen_ing_chart = resumen_ing_chart[(resumen_ing_chart['RFCEmisor'] == rfc_filtro) & ((resumen_ing_chart['TipoDeComprobante'] == "I"))]
                 resumen_ing_chart = resumen_ing_chart[resumen_ing_chart['Estatus_Meta'] != "0"]
                 resumen_ing_chart = resumen_ing_chart.groupby(by=['Año', 'Mes'], as_index=False)['SubTotal'].sum()
-                fig = px.bar(resumen_ing_chart, x='Mes', y='SubTotal', color='Mes', barmode='group', labels={'SubTotal': 'Suma del SubTotal', 'Mes': 'Mes', 'Año': 'Año'}, title='Suma del Subtotal por Mes y Año')
-                
+                fig = px.bar(resumen_ing_chart, x='Mes', y='SubTotal', color='Mes', facet_row='Año',  labels={'SubTotal': 'Suma del SubTotal', 'Mes': 'Mes', 'Año': 'Año'}, title='Suma del Subtotal por Mes y Año')
+                # barmode='group',
                 # Muestra el gráfico
                 st.write(fig)
             
