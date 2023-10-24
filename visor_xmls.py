@@ -713,10 +713,13 @@ def main():
             
             st.divider()
             
-            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(["Total CFDIs", "Ingresos", "Egresos", "Nomina", "Complementos de Pago", "Metadata",
+            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs(["RESUMEN", "Total CFDIs", "Ingresos", "Egresos", "Nomina", "Complementos de Pago", "Metadata",
                                                                                             "Conceptos", "Imp x Concepto", "Imp Ret x Conc", "Impuestos Totales", "Impuestos Retenidos"])
-            
+
             with tab1:
+                st.header("Resumen")
+            
+            with tab2:
                 st.subheader("Total de CFDIs")
                 st.caption('Detalle de los CFDIs procesados')
                 st.caption('CFDIs Version 3.3 y 4.0')
@@ -729,7 +732,7 @@ def main():
                 st.dataframe(EFOS, height=600)
 
                 
-            with tab2:
+            with tab3:
                 st.subheader("CFDIs de Ingresos")
                 st.caption('Detalle de los CFDIs procesados')
                 cfdi_ingresos = pd.DataFrame(CFDIs)
@@ -740,7 +743,7 @@ def main():
                 resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
                 st.dataframe(resumen_ing, height=600)
                 
-            with tab3:
+            with tab4:
                 st.subheader("CFDIs de Egresos")
                 st.caption('Detalle de los CFDIs procesados')
                 cfdi_egresos = pd.DataFrame(CFDIs)
@@ -751,7 +754,7 @@ def main():
                 resumen_eg = resumen_eg.groupby(by=['RFCReceptor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
                 st.dataframe(resumen_eg, height=600)
                 
-            with tab4:
+            with tab5:
                 st.subheader("CFDIs de Nomina")
                 st.caption('Detalle de los CFDIs procesados')
                 cfdi_nomina = pd.DataFrame(CFDIs)
@@ -759,7 +762,7 @@ def main():
                 st.write(cfdi_nomina.shape)
                 st.dataframe(cfdi_nomina, height=600)
 
-            with tab5:
+            with tab6:
                 st.subheader("CFDIs Complementos de Pago Recibidos")
                 st.caption('Detalle de los CFDIs procesados')
                 cfdi_comp_pago = pd.DataFrame(CFDIs)
@@ -770,7 +773,7 @@ def main():
                 resumen_comp_pago = resumen_comp_pago.groupby(by=['DocRelacionado', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum','ImportePagado': 'sum'})
                 st.dataframe(resumen_comp_pago)
 
-            with tab6:
+            with tab7:
                 st.subheader("Metadata")
                 st.caption('Detalle de la Metadata')
                 st.write(metadata.shape)
@@ -802,33 +805,33 @@ def main():
                 resumen_metadata_eg = metadata_eg.groupby(by=['RfcReceptor_Meta', 'Año_Meta', 'Mes_Meta'], as_index=False).agg({'Monto_Meta_Vig': 'sum','Monto_Meta_Canc': 'sum'})
                 st.dataframe(resumen_metadata_eg)
 
-            with tab7:
+            with tab8:
                 st.subheader("Conceptos")
                 st.caption('Detalle de la Metadata')
                 df_conceptos = pd.concat(conceptos, ignore_index=True)
                 st.write(df_conceptos.shape)
                 st.dataframe(df_conceptos)
 
-            with tab8:
+            with tab9:
                 st.subheader("Impuestos por concepto")
                 st.caption('Detalle de la Metadata')
                 
                 st.write(df_impxconc.shape)
                 st.dataframe(df_impxconc)
 
-            with tab9:
+            with tab10:
                 st.subheader("Impuestos Retenidos por concepto")
                 st.caption('Detalle de la Metadata')
                 st.write(df_impretxcon.shape)
                 st.dataframe(df_impretxcon)
 
-            with tab10:
+            with tab11:
                 st.subheader("Impuestos Totales")
                 st.caption('Detalle de la Metadata')
                 st.write(df_impuestos.shape)
                 st.dataframe(df_impuestos)
 
-            with tab11:
+            with tab12:
                 st.subheader("Impuestos Retenidos")
                 st.caption('Detalle de la Metadata')
                 st.write(df_impuestos_ret.shape)
