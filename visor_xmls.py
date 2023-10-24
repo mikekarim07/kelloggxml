@@ -535,7 +535,7 @@ EFOS = pd.read_csv('http://omawww.sat.gob.mx/cifras_sat/Documents/Listado_Comple
 
 def main():
     
-    st.image("https://www.kelloggs.com/content/dam/NorthAmerica/kelloggs/en_US/images/logoMain.png", width=150)
+    st.image("https://www.kellanovaus.com/content/dam/NorthAmerica/kellanova-us/images/logo.svg", width=150)
     st.title("Plataforma Web para extraer datos de los CFDIs")
     with st.sidebar.expander("Instrucciones"):
         st.subheader("Instrucciones")
