@@ -580,7 +580,7 @@ def main():
     uploaded_txt_files = st.sidebar.file_uploader("Carga los archivos txt que contienen la metadata del SAT", type=["txt"], accept_multiple_files=True)
     rfc_filtro = st.text_input('Ingresa el RFC de la sociedad que deseas hacer el análisis:', value='', key='rfc_filtro')
     st.write("Selecciona la casilla Procesar 👇")
-    if st.checkbox("Procesar") and st.session_state.rfc_filtro is None:
+    if st.checkbox("Procesar"):
         if uploaded_zip_files and uploaded_txt_files:
             # Extract XML files from zip files
             extracted_files = extract_xml_files(uploaded_zip_files)
