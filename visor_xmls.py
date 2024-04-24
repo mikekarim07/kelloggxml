@@ -562,7 +562,7 @@ if 'rfc_filtro' not in st.session_state:
 def main():
     
     # st.image("https://www.kellanovaus.com/content/dam/NorthAmerica/kellanova-us/images/logo.svg", width=150)
-    st.image("https://cfvod.kaltura.com/p/5697362/sp/569736200/raw/entry_id/1_4wg2h8wd/version/100001", width=300)
+    st.image("https://www.sat.gob.mx/satys/img/logo3.png", width=300)
     st.title("Plataforma Web para extraer datos de los CFDIs")
     with st.sidebar.expander("Instrucciones"):
         st.subheader("Instrucciones")
