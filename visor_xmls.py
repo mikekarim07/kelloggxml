@@ -801,7 +801,7 @@ def main():
                 st.subheader("CFDIs de Ingresos")
                 st.caption('Detalle de los CFDIs procesados')
                 cfdi_ingresos = pd.DataFrame(CFDIs)
-                cfdi_ingresos = cfdi_ingresos[(cfdi_ingresos['RFCEmisor'] == rfc_filtro) & ((cfdi_ingresos['TipoDeComprobante'] == "I")) & (cfdi_ingresos['Version'] == '3.3')]
+                cfdi_ingresos = cfdi_ingresos[(cfdi_ingresos['RFCEmisor'] == rfc_filtro) & ((cfdi_ingresos['TipoDeComprobante'] == "I")) & (cfdi_ingresos['FormaPago'] == '04')]
                 st.write(cfdi_ingresos.shape)
                 st.dataframe(cfdi_ingresos, height=600)
                 resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
