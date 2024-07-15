@@ -563,7 +563,8 @@ def main():
     
     st.image("https://www.kellanovaus.com/content/dam/NorthAmerica/kellanova-us/images/logo.svg", width=150)
     # st.image("https://www.sat.gob.mx/satys/img/logo3.png", width=300)
-    st.title("Plataforma Web para extraer datos de los CFDIs Kellanova")
+    st.title("Plataforma Web para la conciliación entre el ERP y la data del SAT")
+    st.sbuheader('Extracción de los datos de los XMLs y conciliación contra los datos registrados en SAP')
     with st.sidebar.expander("Instrucciones"):
         st.subheader("Instrucciones")
         st.write('1. Para una carga más ágil, juntar todos los archivos xml que desean procesar en uno o varios archivos zip.')
