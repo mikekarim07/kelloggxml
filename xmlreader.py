@@ -602,13 +602,13 @@ def main():
             cfdv33_not_processed = []
                         
             df_cfdv33 = pd.DataFrame()
-            txt_appended = read_and_append_txt_files(uploaded_txt_files)
+            #txt_appended = read_and_append_txt_files(uploaded_txt_files)
             
-            if txt_appended is not None:
-                txt_appended = txt_appended[txt_appended['Uuid'] != 'Uuid']
+            #if txt_appended is not None:
+            #    txt_appended = txt_appended[txt_appended['Uuid'] != 'Uuid']
                 
-            else:
-                st.warning("No data to display. Please upload valid TXT files.")
+            #else:
+            #    st.warning("No data to display. Please upload valid TXT files.")
 
                         
             for xml_path in extracted_files:
@@ -629,46 +629,46 @@ def main():
             
             # Meta4merge = pd.DataFrame(txt_appended)
             # Meta4merge.drop([RfcEmisor,NombreEmisor,RfcReceptor,NombreReceptor,,,,,])
-            txt_appended.rename(columns = {'Uuid':'UUID_Meta','RfcEmisor':'RfcEmisor_Meta', 'NombreEmisor':'NombreEmisor_Meta',
+            #txt_appended.rename(columns = {'Uuid':'UUID_Meta','RfcEmisor':'RfcEmisor_Meta', 'NombreEmisor':'NombreEmisor_Meta',
                               'RfcReceptor':'RfcReceptor_Meta', 'NombreReceptor':'NombreReceptor_Meta', 'RfcPac':'RfcPac_Meta',
                               'FechaEmision':'FechaEmision_Meta','FechaCertificacionSat':'FechaCertificacionSat_Meta',
                               'Monto':'Monto_Meta','EfectoComprobante':'EfectoComprobante_Meta','Estatus':'Estatus_Meta',
                               'FechaCancelacion':'FechaCancelacion_Meta'}, inplace = True)
-            metadata = pd.DataFrame(txt_appended)
-            metadata[['FechaEmision_Meta', 'HoraEmision_Meta']] = metadata['FechaEmision_Meta'].str.split(' ', n=1, expand=True)
-            metadata[['FechaEmision_Meta']] = metadata[['FechaEmision_Meta']].apply(pd.to_datetime)
-            metadata['Año_Meta'] = metadata['FechaEmision_Meta'].dt.year
-            metadata['Mes_Meta'] = metadata['FechaEmision_Meta'].dt.month
-            metadata['Día_Meta'] = metadata['FechaEmision_Meta'].dt.day
-            metadata[['Año_Meta', 'Mes_Meta', 'Día_Meta']] = metadata[['Año_Meta', 'Mes_Meta', 'Día_Meta']].astype('string')
-            metadata[['Monto_Meta']] = metadata[['Monto_Meta']].apply(pd.to_numeric)
-            metadata['FechaCancelacion_Meta'].fillna('', inplace=True)
-            metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
+            #metadata = pd.DataFrame(txt_appended)
+            #metadata[['FechaEmision_Meta', 'HoraEmision_Meta']] = metadata['FechaEmision_Meta'].str.split(' ', n=1, expand=True)
+            #metadata[['FechaEmision_Meta']] = metadata[['FechaEmision_Meta']].apply(pd.to_datetime)
+            #metadata['Año_Meta'] = metadata['FechaEmision_Meta'].dt.year
+            #metadata['Mes_Meta'] = metadata['FechaEmision_Meta'].dt.month
+            #metadata['Día_Meta'] = metadata['FechaEmision_Meta'].dt.day
+            #metadata[['Año_Meta', 'Mes_Meta', 'Día_Meta']] = metadata[['Año_Meta', 'Mes_Meta', 'Día_Meta']].astype('string')
+            #metadata[['Monto_Meta']] = metadata[['Monto_Meta']].apply(pd.to_numeric)
+            #metadata['FechaCancelacion_Meta'].fillna('', inplace=True)
+            #metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
 
             # if 'FechaCancelacion_Meta' in metadata:
             #     metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
             #     metadata['HoraCancelacion_Meta'].fillna('', inplace=True)  # Fill missing time values with empty string or any default value you prefer
             # metadata[['FechaCancelacion_Meta', 'HoraCancelacion_Meta']] = metadata['FechaCancelacion_Meta'].str.split(' ', n=1, expand=True)
-            metadata['FechaCancelacion_Meta'] = pd.to_datetime(metadata['FechaCancelacion_Meta'], errors='coerce')
-            metadata[['FechaCancelacion_Meta']] = metadata[['FechaCancelacion_Meta']].apply(pd.to_datetime)
-            metadata['Año_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.year
-            metadata['Mes_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.month
-            metadata['Día_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.day
-            metadata[['Año_Canc_Meta', 'Mes_Canc_Meta', 'Día_Canc_Meta']] = metadata[['Año_Canc_Meta', 'Mes_Canc_Meta', 'Día_Canc_Meta']].astype('string')
-            metadata[['Monto_Meta']] = metadata[['Monto_Meta']].apply(pd.to_numeric)
-            def monto_vigente(row):
-                if row['Estatus_Meta'] == '1':
-                    return row['Monto_Meta']
-                else:
-                    return None
+            #metadata['FechaCancelacion_Meta'] = pd.to_datetime(metadata['FechaCancelacion_Meta'], errors='coerce')
+            #metadata[['FechaCancelacion_Meta']] = metadata[['FechaCancelacion_Meta']].apply(pd.to_datetime)
+            #metadata['Año_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.year
+            #metadata['Mes_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.month
+            #metadata['Día_Canc_Meta'] = metadata['FechaCancelacion_Meta'].dt.day
+            #metadata[['Año_Canc_Meta', 'Mes_Canc_Meta', 'Día_Canc_Meta']] = metadata[['Año_Canc_Meta', 'Mes_Canc_Meta', 'Día_Canc_Meta']].astype('string')
+            #metadata[['Monto_Meta']] = metadata[['Monto_Meta']].apply(pd.to_numeric)
+            #def monto_vigente(row):
+            #    if row['Estatus_Meta'] == '1':
+            #        return row['Monto_Meta']
+            #    else:
+            #        return None
                 
-            def monto_cancelado(row):
-                if row['Estatus_Meta'] == '0':
-                    return row['Monto_Meta']
-                else:
-                    return None
-            metadata['Monto_Meta_Vig'] = metadata.apply(monto_vigente, axis=1)
-            metadata['Monto_Meta_Canc'] = metadata.apply(monto_cancelado, axis=1)
+            #def monto_cancelado(row):
+            #    if row['Estatus_Meta'] == '0':
+            #        return row['Monto_Meta']
+            #    else:
+            #        return None
+            #metadata['Monto_Meta_Vig'] = metadata.apply(monto_vigente, axis=1)
+            #metadata['Monto_Meta_Canc'] = metadata.apply(monto_cancelado, axis=1)
 
             CFDIs = pd.DataFrame(df_cfdv33)
             CFDIs['UsoCFDI'] = CFDIs['UsoCFDI4']+CFDIs['UsoCFDI33']
@@ -766,34 +766,34 @@ def main():
             with tab6:
                 st.subheader("Metadata")
                 st.caption('Detalle de la Metadata')
-                st.write(metadata.shape)
-                st.dataframe(metadata)
+                #st.write(metadata.shape)
+                #st.dataframe(metadata)
                 st.divider()
 
                 st.caption('Metadata Ing')
-                metadata_ing = metadata[metadata['RfcEmisor_Meta'] == rfc_filtro]
-                st.dataframe(metadata_ing)
+                #metadata_ing = metadata[metadata['RfcEmisor_Meta'] == rfc_filtro]
+                #st.dataframe(metadata_ing)
                 st.divider()
                 
                 st.caption('Metadata Eg')
-                metadata_eg = metadata[metadata['RfcReceptor_Meta'] == rfc_filtro]
-                st.dataframe(metadata_eg)
+                #metadata_eg = metadata[metadata['RfcReceptor_Meta'] == rfc_filtro]
+                #st.dataframe(metadata_eg)
                 st.divider()
                 
-                st.caption('Resumen Metadata Ing')
-                def monto_nomina(row):
-                    if row['EfectoComprobante_Meta'] == 'N':
-                        return row['Monto_Meta']
-                    else:
-                        return None
-                resumen_metadata_ing = pd.DataFrame(metadata_ing)
-                resumen_metadata_ing['Monto_Meta_Nom'] = resumen_metadata_ing.apply(monto_nomina, axis=1)
-                resumen_metadata_ing = resumen_metadata_ing.groupby(by=['RfcEmisor_Meta', 'Año_Meta', 'Mes_Meta'], as_index=False).agg({'Monto_Meta_Vig': 'sum','Monto_Meta_Canc': 'sum','Monto_Meta_Nom': 'sum'})
-                st.dataframe(resumen_metadata_ing)
+                #st.caption('Resumen Metadata Ing')
+                #def monto_nomina(row):
+                #    if row['EfectoComprobante_Meta'] == 'N':
+                #        return row['Monto_Meta']
+                #    else:
+                #        return None
+                #resumen_metadata_ing = pd.DataFrame(metadata_ing)
+                #resumen_metadata_ing['Monto_Meta_Nom'] = resumen_metadata_ing.apply(monto_nomina, axis=1)
+                #resumen_metadata_ing = resumen_metadata_ing.groupby(by=['RfcEmisor_Meta', 'Año_Meta', 'Mes_Meta'], as_index=False).agg({'Monto_Meta_Vig': 'sum','Monto_Meta_Canc': 'sum','Monto_Meta_Nom': 'sum'})
+                #st.dataframe(resumen_metadata_ing)
                 
-                st.caption('Resumen Metadata Eg')
-                resumen_metadata_eg = metadata_eg.groupby(by=['RfcReceptor_Meta', 'Año_Meta', 'Mes_Meta'], as_index=False).agg({'Monto_Meta_Vig': 'sum','Monto_Meta_Canc': 'sum'})
-                st.dataframe(resumen_metadata_eg)
+                #st.caption('Resumen Metadata Eg')
+                #resumen_metadata_eg = metadata_eg.groupby(by=['RfcReceptor_Meta', 'Año_Meta', 'Mes_Meta'], as_index=False).agg({'Monto_Meta_Vig': 'sum','Monto_Meta_Canc': 'sum'})
+                #st.dataframe(resumen_metadata_eg)
 
             with tab7:
                 st.subheader("Conceptos")
