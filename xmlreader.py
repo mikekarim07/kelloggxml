@@ -732,7 +732,7 @@ def main():
                 cfdi_ingresos = cfdi_ingresos[(cfdi_ingresos['RFCEmisor'] == rfc_filtro) & ((cfdi_ingresos['TipoDeComprobante'] == "I"))]
                 st.write(cfdi_ingresos.shape)
                 st.dataframe(cfdi_ingresos, height=600)
-                resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
+                #resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
                 resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
                 st.dataframe(resumen_ing, height=600)
                 
