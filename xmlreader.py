@@ -699,15 +699,15 @@ def main():
             CFDIs[['Año', 'Mes', 'Día']] = CFDIs[['Año', 'Mes', 'Día']].astype('string')
             CFDIs['UUID'] = CFDIs['UUID'].str.upper()
             CFDIs['TipoDeComprobante'] = CFDIs['TipoDeComprobante'].str.upper()
-            CFDIs = CFDIs.merge(metadata, left_on='UUID', right_on='UUID_Meta', how='left')
+            #CFDIs = CFDIs.merge(metadata, left_on='UUID', right_on='UUID_Meta', how='left')
 
 
 
-            CFDIs.drop(['UsoCFDI4','UsoCFDI33','RegimenFiscal4','RegimenFiscal33','RfcEmisor4', 'RfcEmisor33','NombreEmisor4','NombreEmisor33','RfcReceptor4','RfcReceptor33','NombreReceptor4',
-                        'NombreReceptor33','TotalImpuestosRet4','TotalImpuestosRet33','TotalImpuestosTrasl4','TotalImpuestosTrasl33','UUID4','UUID33','FechaPagoP4','FechaPagoP33','FormaDePagoP4',
-                        'FormaDePagoP33','MonedaP4','MonedaP33','MontoP4','MontoP33','DocRelacionado4','DocRelacionado33','MonedaDR4','MonedaDR33','NumParcialidad4','NumParcialidad33',
-                        'ImporteSaldoAnt4','ImporteSaldoAnt33','ImportePagado4','ImportePagado33','ImprteSaldoInsoluto4','ImprteSaldoInsoluto33','Version4','Version33','RfcReceptor_Meta',
-                        'NombreReceptor_Meta','RfcPac_Meta','FechaEmision_Meta','FechaCertificacionSat_Meta','EfectoComprobante_Meta'], axis = 1, inplace=True)
+            #CFDIs.drop(['UsoCFDI4','UsoCFDI33','RegimenFiscal4','RegimenFiscal33','RfcEmisor4', 'RfcEmisor33','NombreEmisor4','NombreEmisor33','RfcReceptor4','RfcReceptor33','NombreReceptor4',
+            #            'NombreReceptor33','TotalImpuestosRet4','TotalImpuestosRet33','TotalImpuestosTrasl4','TotalImpuestosTrasl33','UUID4','UUID33','FechaPagoP4','FechaPagoP33','FormaDePagoP4',
+            #            'FormaDePagoP33','MonedaP4','MonedaP33','MontoP4','MontoP33','DocRelacionado4','DocRelacionado33','MonedaDR4','MonedaDR33','NumParcialidad4','NumParcialidad33',
+            #            'ImporteSaldoAnt4','ImporteSaldoAnt33','ImportePagado4','ImportePagado33','ImprteSaldoInsoluto4','ImprteSaldoInsoluto33','Version4','Version33','RfcReceptor_Meta',
+            #            'NombreReceptor_Meta','RfcPac_Meta','FechaEmision_Meta','FechaCertificacionSat_Meta','EfectoComprobante_Meta'], axis = 1, inplace=True)
             CFDIs[['SubTotal', 'Total', 'ImpuestosRetenidos', 'ImpuestosTrasladados', 'MontoP', 'ImporteSaldoAnterior', 'ImportePagado', 'ImporteSaldoInsoluto']] = CFDIs[['SubTotal', 'Total',
                      'ImpuestosRetenidos', 'ImpuestosTrasladados', 'MontoP', 'ImporteSaldoAnterior', 'ImportePagado', 'ImporteSaldoInsoluto']].apply(pd.to_numeric)
             
