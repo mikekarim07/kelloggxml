@@ -733,8 +733,8 @@ def main():
                 st.write(cfdi_ingresos.shape)
                 st.dataframe(cfdi_ingresos, height=600)
                 #resumen_ing = cfdi_ingresos[cfdi_ingresos['Estatus_Meta'] != "0"]
-                resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
-                st.dataframe(resumen_ing, height=600)
+                #resumen_ing = resumen_ing.groupby(by=['RFCEmisor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
+                #st.dataframe(resumen_ing, height=600)
                 
             with tab3:
                 st.subheader("CFDIs de Egresos")
@@ -743,9 +743,9 @@ def main():
                 cfdi_egresos = cfdi_egresos[(cfdi_egresos['RFCReceptor'] == rfc_filtro) & (cfdi_egresos['TipoDeComprobante'] != "P")]
                 st.write(cfdi_egresos.shape)
                 st.dataframe(cfdi_egresos, height=600)
-                resumen_eg = cfdi_egresos[cfdi_egresos['Estatus_Meta'] != "0"]
-                resumen_eg = resumen_eg.groupby(by=['RFCReceptor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
-                st.dataframe(resumen_eg, height=600)
+                #resumen_eg = cfdi_egresos[cfdi_egresos['Estatus_Meta'] != "0"]
+                #resumen_eg = resumen_eg.groupby(by=['RFCReceptor', 'Año', 'Mes'], as_index=False).agg({'SubTotal': 'sum','Total': 'sum'})
+                #st.dataframe(resumen_eg, height=600)
                 
             with tab4:
                 st.subheader("CFDIs de Nomina")
