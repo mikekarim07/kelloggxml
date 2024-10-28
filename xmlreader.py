@@ -532,7 +532,7 @@ def read_and_append_txt_files(uploaded_txt_files):
 def main():
     
     st.image("https://www.kelloggs.com/content/dam/NorthAmerica/kelloggs/en_US/images/logoMain.png", width=150)
-    st.title("Plataforma Web para extraer datos de los CFDIs")
+    st.title("Plataforma Web para extraer datos de los CFDIs 1")
     st.divider()
     st.subheader("Instrucciones")
     st.write("Para una carga más ágil, juntar todos los archivos xml que desean procesar en uno o varios archivos zip.")
