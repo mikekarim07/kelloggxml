@@ -568,7 +568,7 @@ def main():
     with st.sidebar.expander("Instrucciones"):
         st.subheader("Instrucciones")
         st.write('1. Para una carga más ágil, juntar todos los archivos xml que desean procesar en uno o varios archivos zip.')
-        st.write('1. Para una carga más ágil, juntar todos los archivos xml que desean procesar en uno o varios archivos zip.')
+        # st.write('1. Para una carga más ágil, juntar todos los archivos xml que desean procesar en uno o varios archivos zip.')
         # st.image("https://static.streamlit.io/examples/dice.jpg")
         # st.divider()
         
@@ -579,11 +579,12 @@ def main():
         st.divider()
     # Upload multiple zip files
     uploaded_zip_files = st.sidebar.file_uploader("Carga los archivos zip que contienen los archivos xml", type=["zip"], accept_multiple_files=True)
-    uploaded_txt_files = st.sidebar.file_uploader("Carga los archivos txt que contienen la metadata del SAT", type=["txt"], accept_multiple_files=True)
+    # uploaded_txt_files = st.sidebar.file_uploader("Carga los archivos txt que contienen la metadata del SAT", type=["txt"], accept_multiple_files=True)
     rfc_filtro = st.text_input('Ingresa el RFC de la sociedad que deseas hacer el análisis:', value='', key='rfc_filtro')
     st.write("Selecciona la casilla Procesar 👇")
     if st.checkbox("Procesar"):
-        if uploaded_zip_files and uploaded_txt_files:
+        if uploadad_zip_files:
+        #if uploaded_zip_files and uploaded_txt_files:
             # Extract XML files from zip files
             extracted_files = extract_xml_files(uploaded_zip_files)
             # st.dataframe(extracted_files)
