@@ -630,10 +630,10 @@ def main():
             # Meta4merge = pd.DataFrame(txt_appended)
             # Meta4merge.drop([RfcEmisor,NombreEmisor,RfcReceptor,NombreReceptor,,,,,])
             #txt_appended.rename(columns = {'Uuid':'UUID_Meta','RfcEmisor':'RfcEmisor_Meta', 'NombreEmisor':'NombreEmisor_Meta',
-                              'RfcReceptor':'RfcReceptor_Meta', 'NombreReceptor':'NombreReceptor_Meta', 'RfcPac':'RfcPac_Meta',
-                              'FechaEmision':'FechaEmision_Meta','FechaCertificacionSat':'FechaCertificacionSat_Meta',
-                              'Monto':'Monto_Meta','EfectoComprobante':'EfectoComprobante_Meta','Estatus':'Estatus_Meta',
-                              'FechaCancelacion':'FechaCancelacion_Meta'}, inplace = True)
+            #                  'RfcReceptor':'RfcReceptor_Meta', 'NombreReceptor':'NombreReceptor_Meta', 'RfcPac':'RfcPac_Meta',
+            #                  'FechaEmision':'FechaEmision_Meta','FechaCertificacionSat':'FechaCertificacionSat_Meta',
+            #                  'Monto':'Monto_Meta','EfectoComprobante':'EfectoComprobante_Meta','Estatus':'Estatus_Meta',
+            #                  'FechaCancelacion':'FechaCancelacion_Meta'}, inplace = True)
             #metadata = pd.DataFrame(txt_appended)
             #metadata[['FechaEmision_Meta', 'HoraEmision_Meta']] = metadata['FechaEmision_Meta'].str.split(' ', n=1, expand=True)
             #metadata[['FechaEmision_Meta']] = metadata[['FechaEmision_Meta']].apply(pd.to_datetime)
