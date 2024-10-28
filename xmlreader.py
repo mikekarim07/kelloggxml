@@ -531,8 +531,8 @@ def read_and_append_txt_files(uploaded_txt_files):
 
 def main():
     
-    st.image("https://www.kelloggs.com/content/dam/NorthAmerica/kelloggs/en_US/images/logoMain.png", width=150)
-    st.title("Plataforma Web para extraer datos de los CFDIs 1")
+    # st.image("https://www.kelloggs.com/content/dam/NorthAmerica/kelloggs/en_US/images/logoMain.png", width=150)
+    st.title("Plataforma Web para extraer datos de los CFDIs")
     st.divider()
     st.subheader("Instrucciones")
     st.write("Para una carga más ágil, juntar todos los archivos xml que desean procesar en uno o varios archivos zip.")
@@ -549,7 +549,8 @@ def main():
     
     st.write("Selecciona la casilla Procesar 👇")
     if st.checkbox("Procesar"):
-        if uploaded_zip_files and uploaded_txt_files:
+        if uploaded_zip_files: 
+        # if uploaded_zip_files and uploaded_txt_files:
             # Extract XML files from zip files
             extracted_files = extract_xml_files(uploaded_zip_files)
             # st.dataframe(extracted_files)
