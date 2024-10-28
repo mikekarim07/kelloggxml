@@ -561,9 +561,9 @@ if 'rfc_filtro' not in st.session_state:
 
 def main():
     
-    st.image("https://www.kellanovaus.com/content/dam/NorthAmerica/kellanova-us/images/logo.svg", width=150)
+    # st.image("https://www.kellanovaus.com/content/dam/NorthAmerica/kellanova-us/images/logo.svg", width=150)
     # st.image("https://www.sat.gob.mx/satys/img/logo3.png", width=300)
-    st.title("Plataforma Web para la conciliación entre el ERP y la data del SAT")
+    st.title("""Plataforma Web para la conciliación de CFDIs (archivos xml)""")
     st.subheader('Extracción de los datos de los XMLs y conciliación contra los datos registrados en SAP')
     with st.sidebar.expander("Instrucciones"):
         st.subheader("Instrucciones")
